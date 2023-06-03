@@ -1,11 +1,36 @@
-import React from "react";
+import './App.css';
+import React, { useState } from "react";
+import { Routes, Route, Link } from 'react-router-dom';
+import HomePage from "./HomePage";
+import PizzaForm from "./PizzaForm";
+
+const pizzaFormValues = {
+  name: '',
+  pizzaSize: '',
+  toppings: false,
+  specialRequest: ''
+}
 
 const App = () => {
+
+  const [formValues, setFormValues] = useState(pizzaFormValues);
+
+  const handleChange = (name, value) =>{
+    setFormValues({ ...formValues, [name]: value })
+  }
+
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+    
+    <div>
+      
+      <Routes>
+        <Route path="/" element={<HomePage/>} />
+        <Route path="/pizza" element={<PizzaForm 
+          id="pizza-form"
+          values={formValues}
+          change={handleChange}/>}/>      
+      </Routes>
+    </div>
   );
 };
 export default App;
